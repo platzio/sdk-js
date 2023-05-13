@@ -1,0 +1,38 @@
+name: 🚀 Publish SDK
+
+on:
+  push:
+    tags:
+      - v**
+
+jobs:
+  release:
+    name: 🚀 Publish SDK
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v3
+
+      - name: 🛠️ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: ⬇️ Download OpenAPI schema
+        uses: robinraju/release-downloader@v1.8
+        with:
+          repository: ${{ github.repository_owner }}/backend
+          tag: ${{ github.ref_name }}
+          fileName: "openapi.yaml"
+
+      - name: 🏗️ Generate SDK
+        uses: craicoverflow/openapi-generator-action@v1
+        with:
+          generator: "typescript-axios"
+          input: "openapi.yaml"
+          output: "."
+
+      - name: 🚀 Publish to NPM
+        uses: JS-DevTools/npm-publish@v2
+        with:
+          token: ${{ secrets.NPM_TOKEN }}

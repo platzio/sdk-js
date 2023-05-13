@@ -1,0 +1,33 @@
+{
+  "name": "@platzio/sdk",
+  "version": "0.5.0-beta.8",
+  "description": "Platz.io SDK",
+  "homepage": "https://platz.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/platzio/sdk-ts"
+  },
+  "keywords": [
+    "platz",
+    "helm",
+    "cicd"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc --module commonjs"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
+}

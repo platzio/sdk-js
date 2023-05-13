@@ -18,11 +18,21 @@ jobs:
         with:
           node-version: 18
 
+      - name: 🎲 Choose backend version
+        id: backend_tag
+        run: |
+          if [ -f version-override.txt ]
+          then
+            echo "backend_tag=`cat version-override.txt`" >> "$GITHUB_OUTPUT"
+          else
+            echo "backend_tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: ⬇️ Download OpenAPI schema
         uses: robinraju/release-downloader@v1.8
         with:
           repository: ${{ github.repository_owner }}/backend
-          tag: ${{ github.ref_name }}
+          tag: ${{ steps.backend_tag.outputs.backend_tag }}
           fileName: "openapi.yaml"
 
       - name: 🏗️ Generate SDK

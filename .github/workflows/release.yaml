@@ -23,9 +23,9 @@ jobs:
         run: |
           if [ -f version-override.txt ]
           then
-            echo "backend_tag=`cat version-override.txt`" >> "$GITHUB_OUTPUT"
+            echo "backend_tag=v`cat version-override.txt`" >> "$GITHUB_OUTPUT"
           else
-            echo "backend_tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+            echo "backend_tag=v`cat package.json | jq -r .version`" >> "$GITHUB_OUTPUT"
           fi
 
       - name: ⬇️ Download OpenAPI schema

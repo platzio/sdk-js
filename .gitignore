@@ -1,5 +1,4 @@
 # The src directory is generated with OpenAPI Generator
 /src
-
 /dist
 /node_modules

@@ -41,6 +41,7 @@ jobs:
           generator: "typescript-axios"
           input: "openapi.yaml"
           output: "."
+          additional-properties: useSingleRequestParameter=true
 
       - name: 🚀 Publish to NPM
         uses: JS-DevTools/npm-publish@v2

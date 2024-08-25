@@ -14,9 +14,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: 🛠️ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: latest
 
       - name: 🎲 Choose backend version
         id: backend_tag
@@ -36,12 +36,23 @@ jobs:
           fileName: "openapi.yaml"
 
       - name: 🏗️ Generate SDK
-        uses: craicoverflow/openapi-generator-action@v1
-        with:
-          generator: "typescript-axios"
-          input: "openapi.yaml"
-          output: "."
-          additional-properties: useSingleRequestParameter=true
+        run: |
+          docker run --rm \
+            -v "$(pwd):/local" \
+            openapitools/openapi-generator-cli \
+            generate \
+            -i /local/openapi.yaml \
+            -g typescript-axios \
+            -o /local/src \
+            --additional-properties=useSingleRequestParameter=true
+
+      - name: 👷 npm install
+        run: |
+          npm install
+
+      - name: 👷 npm build
+        run: |
+          npm run build
 
       - name: 🚀 Publish to NPM
         uses: JS-DevTools/npm-publish@v2

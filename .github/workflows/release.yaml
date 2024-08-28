@@ -37,14 +37,7 @@ jobs:
 
       - name: 🏗️ Generate SDK
         run: |
-          docker run --rm \
-            -v "$(pwd):/local" \
-            openapitools/openapi-generator-cli \
-            generate \
-            -i /local/openapi.yaml \
-            -g typescript-axios \
-            -o /local/src \
-            --additional-properties=useSingleRequestParameter=true
+          ./generate-sdk.sh openapi.yaml
 
       - name: 👷 npm install
         run: |

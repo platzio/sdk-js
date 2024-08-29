@@ -48,6 +48,6 @@ jobs:
           npm run build
 
       - name: 🚀 Publish to NPM
-        uses: JS-DevTools/npm-publish@v2
+        uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}

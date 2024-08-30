@@ -1,11 +1,11 @@
 {
   "name": "@platzio/sdk",
-  "version": "0.6.0-beta.1",
+  "version": "0.6.0-beta.1-1",
   "description": "Platz.io SDK",
   "homepage": "https://platz.io",
   "repository": {
     "type": "git",
-    "url": "https://github.com/platzio/sdk-ts"
+    "url": "https://github.com/platzio/sdk-js"
   },
   "keywords": [
     "platz",
@@ -14,19 +14,16 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc --module commonjs"
+    "build": "tsup src/index.ts --format cjs,esm --dts"
   },
-  "files": [
-    "dist"
-  ],
   "main": "dist/index.js",
-  "publishConfig": {
-    "access": "public"
-  },
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "peerDependencies": {
     "axios": "^1.7.5"
   },
   "devDependencies": {
+    "tsup": "^8.2.4",
     "typescript": "^5.5.4"
   }
 }

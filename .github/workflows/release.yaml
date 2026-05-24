@@ -28,6 +28,15 @@ jobs:
             echo "backend_tag=v`cat package.json | jq -r .version`" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: 🏷️ Choose npm dist-tag
+        id: npm_tag
+        run: |
+          version=`cat package.json | jq -r .version`
+          case "$version" in
+            *-*) echo "tag=beta" >> "$GITHUB_OUTPUT" ;;
+            *)   echo "tag=latest" >> "$GITHUB_OUTPUT" ;;
+          esac
+
       - name: ⬇️ Download OpenAPI schema
         uses: robinraju/release-downloader@v1.12
         with:
@@ -51,3 +60,4 @@ jobs:
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
+          tag: ${{ steps.npm_tag.outputs.tag }}

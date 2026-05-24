@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🛠️ Setup node
         uses: actions/setup-node@v4
@@ -29,7 +29,7 @@ jobs:
           fi
 
       - name: ⬇️ Download OpenAPI schema
-        uses: robinraju/release-downloader@v1.8
+        uses: robinraju/release-downloader@v1.12
         with:
           repository: ${{ github.repository_owner }}/backend
           tag: ${{ steps.backend_tag.outputs.backend_tag }}

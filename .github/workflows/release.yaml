@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   release:
     name: 🚀 Publish SDK
@@ -17,6 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
+          registry-url: "https://registry.npmjs.org"
 
       - name: 🎲 Choose backend version
         id: backend_tag
@@ -57,7 +62,4 @@ jobs:
           npm run build
 
       - name: 🚀 Publish to NPM
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          tag: ${{ steps.npm_tag.outputs.tag }}
+        run: npm publish --provenance --access public --tag "${{ steps.npm_tag.outputs.tag }}"

@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "ES2016",
         "module": "CommonJS",
+        "ignoreDeprecations": "6.0",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
